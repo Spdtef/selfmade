@@ -1,0 +1,1105 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=As a personal self care chatbot,\"{{ $json.content }}\",respond to this.",
+        "options": {
+          "returnIntermediateSteps": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        -760
+      ],
+      "id": "fb3cec39-95f5-4426-b8df-aec3b6074ed4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "mindcraft-gpt4o",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAzureOpenAi",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        -520
+      ],
+      "id": "1dad9c1e-a87b-41c8-9240-d04e61cd9e38",
+      "name": "Azure OpenAI Chat Model",
+      "credentials": {
+        "azureOpenAiApi": {
+          "id": "9tbFWL7c2r63toDy",
+          "name": "Azure Open AI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        },
+        "content": "Hi! Your friend Toodles is here to talk to you! How are u feeling today?\n(To end the conversation, always feel free to send a \"Lets end this for today\" 💛)",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        -1260,
+        -320
+      ],
+      "id": "5294e59e-51f2-455d-8e4f-3efd471e78c5",
+      "name": "Discord1",
+      "webhookId": "f5a41a19-9269-43f5-9cf0-5f2fa616deab",
+      "alwaysOutputData": true,
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "={{ $('AI Agent').item.json.output }}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        -40,
+        -720
+      ],
+      "id": "a00cbc80-c254-4b46-8306-e4a0a085da19",
+      "name": "Discord2",
+      "webhookId": "761db274-6437-4a30-b278-9a426ba266db",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "u73XGOcNAAxzJmnp",
+          "name": "Discord Webhook account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "get",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        },
+        "messageId": "={{ $('Discord3').item.json.last_message_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        -760,
+        -740
+      ],
+      "id": "17942b8a-c7bc-4835-aaf1-f83b736e5d24",
+      "name": "Discord",
+      "webhookId": "5491a6f5-d8f3-4277-aed8-e70ef60ca80e",
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "get",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        -980,
+        -140
+      ],
+      "id": "de712399-d38c-48ab-9685-5de9e64eca7e",
+      "name": "Discord3",
+      "webhookId": "633b25ab-0925-4596-bca9-36622a03b936",
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -1120,
+        -300
+      ],
+      "id": "5d93f61a-e942-4633-b0fe-01cbce953093",
+      "name": "Wait",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -900,
+        -740
+      ],
+      "id": "1429d891-93cd-4a34-ac60-da0d18a5203f",
+      "name": "Wait1",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3a8ba369-289b-4f31-a59b-309e217d64e8",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "={{ $('Discord1').item.json.content }}",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -620,
+        -140
+      ],
+      "id": "bc842713-6b15-4402-b9c6-39e18e68d974",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "get",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        },
+        "messageId": "={{ $json.last_message_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        -740,
+        -140
+      ],
+      "id": "32e88b61-3500-4b5b-9163-e6dd6210184a",
+      "name": "Discord7",
+      "webhookId": "5491a6f5-d8f3-4277-aed8-e70ef60ca80e",
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -860,
+        -140
+      ],
+      "id": "c0076d09-c3fe-4b94-b26d-2087a2ac0ef3",
+      "name": "Wait4",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -440,
+        -120
+      ],
+      "id": "3e1c815f-dcd0-465c-af4c-757cd43c5c4b",
+      "name": "Wait5",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "51ed452f-10aa-4e43-a9f5-a78ec5ea9fd9",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "Lets end this for today",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        720,
+        -720
+      ],
+      "id": "fce047b9-d747-42aa-8b13-06caea081d80",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        100,
+        -720
+      ],
+      "id": "6c85832c-4f7b-465d-aad0-3c03a58dc4cc",
+      "name": "Wait2",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "get",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        240,
+        -720
+      ],
+      "id": "c5198176-7289-49e2-8b08-34f66c2633f2",
+      "name": "Discord4",
+      "webhookId": "633b25ab-0925-4596-bca9-36622a03b936",
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "get",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        },
+        "messageId": "={{ $json.last_message_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        560,
+        -720
+      ],
+      "id": "fd2961da-fd29-497c-8afa-5c3e9ecf4493",
+      "name": "Discord8",
+      "webhookId": "5491a6f5-d8f3-4277-aed8-e70ef60ca80e",
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        400,
+        -720
+      ],
+      "id": "6d0ccfc9-b9aa-4a03-85f9-0d986ffe61da",
+      "name": "Wait6",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "authentication": "webhook",
+        "content": "I'm really glad we got to check in today. Remember, taking care of yourself is important — even the small steps count. I'm here whenever you need me again. 💛",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        900,
+        160
+      ],
+      "id": "c94cf7d9-cf0b-4443-8aea-a1739a6f84c9",
+      "name": "Discord5",
+      "webhookId": "316a6a38-395f-459c-9e50-28500acf4d9f",
+      "credentials": {
+        "discordWebhookApi": {
+          "id": "u73XGOcNAAxzJmnp",
+          "name": "Discord Webhook account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -620,
+        -740
+      ],
+      "id": "13bbcc69-020e-4ac8-88ed-b229824d9f7a",
+      "name": "Wait3",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Discord').item.json.content }}",
+        "contextWindowLength": 100
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -220,
+        -520
+      ],
+      "id": "b2d86846-75b5-40d2-b179-e08fb2af5b9c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "get",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        400,
+        -320
+      ],
+      "id": "20a5e88e-2a8b-4168-b05f-860b0ca7c42e",
+      "name": "Discord6",
+      "webhookId": "633b25ab-0925-4596-bca9-36622a03b936",
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "resource": "message",
+        "operation": "get",
+        "guildId": {
+          "__rl": true,
+          "value": "1385905153085014167",
+          "mode": "list",
+          "cachedResultName": "Hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1385905153785466928",
+          "mode": "list",
+          "cachedResultName": "hoobles",
+          "cachedResultUrl": "https://discord.com/channels/1385905153085014167/1385905153785466928"
+        },
+        "messageId": "={{ $json.last_message_id }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        760,
+        -320
+      ],
+      "id": "d9d0e60b-b128-4ecb-be0e-4cf7f387c1b6",
+      "name": "Discord9",
+      "webhookId": "5491a6f5-d8f3-4277-aed8-e70ef60ca80e",
+      "credentials": {
+        "discordOAuth2Api": {
+          "id": "AafYTkmxB6zIzLcp",
+          "name": "Discord account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        580,
+        -320
+      ],
+      "id": "ff1c3791-b23a-4233-ac82-4a92359c3304",
+      "name": "Wait7",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        260,
+        -320
+      ],
+      "id": "44c28a5b-2a06-4e80-961b-de735e78549c",
+      "name": "Wait8",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "51ed452f-10aa-4e43-a9f5-a78ec5ea9fd9",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "={{ $('AI Agent').item.json.output }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        680,
+        -140
+      ],
+      "id": "c8049470-5bba-4b4a-a6db-bb549426c55d",
+      "name": "If2"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        -320
+      ],
+      "id": "9a675571-d3c6-4b5e-8c06-51eb4b8ad985",
+      "name": "Wait9",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "amount": 4
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        60,
+        100
+      ],
+      "id": "2dc5f68d-ab79-46fa-9d46-e5946f15f56e",
+      "name": "Wait10",
+      "webhookId": "5dd251f4-4a11-422f-b696-ebfd66cc1e18"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "30838010-3212-4618-a463-ba93b8f57d73",
+              "leftValue": "={{ $json.content }}",
+              "rightValue": "Lets end this for today",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -540,
+        -440
+      ],
+      "id": "49d5e221-5db7-49cb-8eb5-18645076f3e6",
+      "name": "If3"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -520
+      ],
+      "id": "68b8f4fa-2106-492d-9562-99860eeecbd7",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        -520
+      ],
+      "id": "15970030-3974-476c-a842-4ff13cd27e93",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "ACG8FMUbyhmmANxW",
+          "name": "SerpAPI account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 5
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1260,
+        -580
+      ],
+      "id": "35ebcc9a-a3f2-450b-9791-9cdfad3eeeae",
+      "name": "Schedule Trigger"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Azure OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Discord2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord2": {
+      "main": [
+        [
+          {
+            "node": "Wait2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord": {
+      "main": [
+        [
+          {
+            "node": "Wait3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord3": {
+      "main": [
+        [
+          {
+            "node": "Wait4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Discord3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "If3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait4": {
+      "main": [
+        [
+          {
+            "node": "Discord7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord7": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait5": {
+      "main": [
+        [
+          {
+            "node": "Discord3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord4": {
+      "main": [
+        [
+          {
+            "node": "Wait6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait6": {
+      "main": [
+        [
+          {
+            "node": "Discord8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait2": {
+      "main": [
+        [
+          {
+            "node": "Discord4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord8": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Wait8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discord5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait3": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord6": {
+      "main": [
+        [
+          {
+            "node": "Wait7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait7": {
+      "main": [
+        [
+          {
+            "node": "Discord9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord9": {
+      "main": [
+        [
+          {
+            "node": "Wait9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait8": {
+      "main": [
+        [
+          {
+            "node": "Discord6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Wait8",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait9": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait10": {
+      "main": [
+        [
+          {
+            "node": "Discord3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If3": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discord5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Discord1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c1c34b8b-fbd2-42d5-b937-954fb29d7276",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3a44c6e8da5aba5413879fdcc43cdc657acf7fdcfc8f7c723f2abc807e27ed13"
+  },
+  "id": "xAP5LRCjlFp5tdWa",
+  "tags": []
+}
